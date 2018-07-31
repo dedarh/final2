@@ -15,10 +15,7 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
-    links:
-      - config
-
-
+      
   config:
     environment:
       CONFIG_SERVICE_PASSWORD: "test"
@@ -56,8 +53,7 @@ services:
 
     ports:
       - 8761:8761
-    depends_on:
-       - config
+
 
 
   gateway:
@@ -99,8 +95,6 @@ services:
 
     ports:
       - 5000:5000
-    depends_on:
-       - config
 
 
 
@@ -144,8 +138,7 @@ services:
 
     ports:
       - 6000:6000
-    depends_on:
-       - config
+ 
 
 
   account-mongodb:
@@ -165,8 +158,6 @@ services:
         window: 20s
     ports:
       - 26000:27017
-    depends_on:
-       - config
 
 
   statistics-service:
@@ -212,10 +203,7 @@ services:
 
     ports:
       - 27000:27017
-    depends_on:
-       - config
-
-
+ 
 
   notification-service:
     environment:
@@ -237,8 +225,7 @@ services:
 
     ports:
       - 8000:8000
-    depends_on:
-       - config
+   
 
 
 
@@ -260,10 +247,6 @@ services:
       MONGODB_PASSWORD: "test"
     ports:
       - 28000:27017
-    depends_on:
-       - config
-
-
 
   monitoring:
     environment:
@@ -284,10 +267,7 @@ services:
     ports:
       - 9000:8080
       - 8989:8989
-    depends_on:
-       - config
-
-
+   
 
 networks:
  asujs-network:
