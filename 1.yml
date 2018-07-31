@@ -1,4 +1,3 @@
-
 version: '3'
 services:
   rabbitmq:
@@ -7,18 +6,18 @@ services:
        asujs-network:
          aliases:
            - rabbitmq
-
     deploy:
-          update_config:
-            delay: 10s
           restart_policy:
             condition: on-failure
-          labels:
-            com.example.description: "piggymetrics"
-
+            delay: 5s
+            max_attempts: 30
+            window: 20s
     ports:
       - 15672:15672
       - 5672:5672
+    links:
+      - config
+
 
   config:
     environment:
@@ -28,13 +27,14 @@ services:
        asujs-network:
          aliases:
            - config
-
     hostname: config
     deploy:
-          update_config:
-            delay: 10s
           restart_policy:
             condition: on-failure
+            delay: 5s
+            max_attempts: 30
+            window: 20s
+
     ports:
       - 8888:8888
 
@@ -47,14 +47,18 @@ services:
        asujs-network:
          aliases:
            - registry
-
     deploy:
-          update_config:
-            delay: 10s
           restart_policy:
             condition: on-failure
+            delay: 5s
+            max_attempts: 30
+            window: 20s
+
     ports:
       - 8761:8761
+    links:
+      - config
+
 
   gateway:
     environment:
@@ -64,12 +68,13 @@ services:
        asujs-network:
          aliases:
            - gateway
-
     deploy:
-          update_config:
-            delay: 10s
           restart_policy:
             condition: on-failure
+            delay: 5s
+            max_attempts: 30
+            window: 20s
+
     ports:
       - 8081:4000
 
@@ -85,14 +90,19 @@ services:
        asujs-network:
          aliases:
            - auth-service
-
     deploy:
-          update_config:
-            delay: 10s
           restart_policy:
             condition: on-failure
+            delay: 5s
+            max_attempts: 30
+            window: 20s
+
     ports:
       - 5000:5000
+    depends_on:
+       - config
+
+
 
   auth-mongodb:
     environment:
@@ -102,14 +112,18 @@ services:
        asujs-network:
          aliases:
            - auth-mongodb
-
     deploy:
-          update_config:
-            delay: 10s
           restart_policy:
             condition: on-failure
+            delay: 5s
+            max_attempts: 30
+            window: 20s
+
     ports:
       - 25000:27017
+    links:
+      - config
+
 
   account-service:
     environment:
@@ -121,14 +135,18 @@ services:
        asujs-network:
          aliases:
            - account-service
-
     deploy:
-          update_config:
-            delay: 10s
           restart_policy:
             condition: on-failure
+            delay: 5s
+            max_attempts: 30
+            window: 20s
+
     ports:
       - 6000:6000
+    depends_on:
+       - config
+
 
   account-mongodb:
     environment:
@@ -139,14 +157,17 @@ services:
        asujs-network:
          aliases:
            - account-mongodb
-
     deploy:
-          update_config:
-            delay: 10s
-          restart_policy:
-            condition: on-failure
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 30
+        window: 20s
     ports:
       - 26000:27017
+    depends_on:
+       - config
+
 
   statistics-service:
     environment:
@@ -160,14 +181,17 @@ services:
            - statistics-service
 
     deploy:
-          update_config:
-            delay: 10s
           restart_policy:
             condition: on-failure
+            delay: 5s
+            max_attempts: 30
+            window: 20s
+
     ports:
       - 7000:7000
-    links:
-      - config
+    depends_on:
+       - config
+
 
 
   statistics-mongodb:
@@ -180,12 +204,18 @@ services:
            - statistics-mongodb
 
     deploy:
-          update_config:
-            delay: 10s
           restart_policy:
             condition: on-failure
+            delay: 5s
+            max_attempts: 30
+            window: 20s
+
     ports:
       - 27000:27017
+    depends_on:
+       - config
+
+
 
   notification-service:
     environment:
@@ -199,12 +229,18 @@ services:
            - notification-service
 
     deploy:
-          update_config:
-            delay: 10s
           restart_policy:
             condition: on-failure
+            delay: 5s
+            max_attempts: 30
+            window: 20s
+
     ports:
       - 8000:8000
+    depends_on:
+       - config
+
+
 
   notification-mongodb:
     image: sqshq/piggymetrics-mongodb:latest
@@ -214,14 +250,20 @@ services:
            - notification-mongodb
 
     deploy:
-          update_config:
-            delay: 10s
           restart_policy:
             condition: on-failure
+            delay: 5s
+            max_attempts: 30
+            window: 20s
+
     environment:
       MONGODB_PASSWORD: "test"
     ports:
       - 28000:27017
+    depends_on:
+       - config
+
+
 
   monitoring:
     environment:
@@ -232,14 +274,20 @@ services:
          aliases:
            - monitoring
     deploy:
-          update_config:
-            delay: 10s
           restart_policy:
             condition: on-failure
+            delay: 5s
+            max_attempts: 30
+            window: 20s
+
 
     ports:
       - 9000:8080
       - 8989:8989
+    depends_on:
+       - config
+
+
 
 networks:
  asujs-network:
