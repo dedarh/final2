@@ -56,8 +56,8 @@ services:
 
     ports:
       - 8761:8761
-    links:
-      - config
+    depends_on:
+       - config
 
 
   gateway:
