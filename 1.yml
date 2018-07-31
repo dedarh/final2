@@ -1,3 +1,4 @@
+
 version: '3'
 services:
   rabbitmq:
@@ -5,7 +6,7 @@ services:
     networks:
        asujs-network:
          aliases:
-           - memcached2
+           - rabbitmq
 
     deploy:
           update_config:
@@ -26,7 +27,7 @@ services:
     networks:
        asujs-network:
          aliases:
-           - memcached2
+           - config
 
     hostname: config
     deploy:
@@ -45,7 +46,7 @@ services:
     networks:
        asujs-network:
          aliases:
-           - memcached2
+           - registry
 
     deploy:
           update_config:
@@ -62,7 +63,7 @@ services:
     networks:
        asujs-network:
          aliases:
-           - memcached2
+           - gateway
 
     deploy:
           update_config:
@@ -83,7 +84,7 @@ services:
     networks:
        asujs-network:
          aliases:
-           - memcached2
+           - auth-service
 
     deploy:
           update_config:
@@ -100,7 +101,7 @@ services:
     networks:
        asujs-network:
          aliases:
-           - memcached2
+           - auth-mongodb
 
     deploy:
           update_config:
@@ -119,7 +120,7 @@ services:
     networks:
        asujs-network:
          aliases:
-           - memcached2
+           - account-service
 
     deploy:
           update_config:
@@ -137,7 +138,7 @@ services:
     networks:
        asujs-network:
          aliases:
-           - memcached2
+           - account-mongodb
 
     deploy:
           update_config:
@@ -156,7 +157,7 @@ services:
     networks:
        asujs-network:
          aliases:
-           - memcached2
+           - statistics-service
 
     deploy:
           update_config:
@@ -176,7 +177,7 @@ services:
     networks:
        asujs-network:
          aliases:
-           - memcached2
+           - statistics-mongodb
 
     deploy:
           update_config:
@@ -195,7 +196,7 @@ services:
     networks:
        asujs-network:
          aliases:
-           - memcached2
+           - notification-service
 
     deploy:
           update_config:
@@ -210,7 +211,7 @@ services:
     networks:
        asujs-network:
          aliases:
-           - memcached2
+           - notification-mongodb
 
     deploy:
           update_config:
@@ -229,7 +230,7 @@ services:
     networks:
        asujs-network:
          aliases:
-           - memcached2
+           - monitoring
     deploy:
           update_config:
             delay: 10s
