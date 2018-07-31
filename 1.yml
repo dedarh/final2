@@ -3,9 +3,7 @@ services:
   rabbitmq:
     image: library/rabbitmq:3-management
     networks:
-       asujs-network:
-         aliases:
-           - rabbitmq
+       - asujs-network
     deploy:
           restart_policy:
             condition: on-failure
@@ -21,9 +19,7 @@ services:
       CONFIG_SERVICE_PASSWORD: "test"
     image: sqshq/piggymetrics-config:latest
     networks:
-       asujs-network:
-         aliases:
-           - config
+       - asujs-network        
     hostname: config
     deploy:
           restart_policy:
@@ -41,9 +37,7 @@ services:
       CONFIG_SERVICE_PASSWORD: "test"
     image: sqshq/piggymetrics-registry:latest
     networks:
-       asujs-network:
-         aliases:
-           - registry
+       - asujs-network
     deploy:
           restart_policy:
             condition: on-failure
@@ -61,9 +55,7 @@ services:
       CONFIG_SERVICE_PASSWORD: "test"
     image: sqshq/piggymetrics-gateway:latest
     networks:
-       asujs-network:
-         aliases:
-           - gateway
+       - asujs-network
     deploy:
           restart_policy:
             condition: on-failure
@@ -83,9 +75,7 @@ services:
       MONGODB_PASSWORD: "test"
     image: sqshq/piggymetrics-auth-service:latest
     networks:
-       asujs-network:
-         aliases:
-           - auth-service
+       - asujs-network
     deploy:
           restart_policy:
             condition: on-failure
@@ -103,9 +93,7 @@ services:
       MONGODB_PASSWORD: "test"
     image: sqshq/piggymetrics-mongodb:latest
     networks:
-       asujs-network:
-         aliases:
-           - auth-mongodb
+       - asujs-network
     deploy:
           restart_policy:
             condition: on-failure
@@ -115,8 +103,6 @@ services:
 
     ports:
       - 25000:27017
-    links:
-      - config
 
 
   account-service:
@@ -126,9 +112,7 @@ services:
       MONGODB_PASSWORD: "test"
     image: sqshq/piggymetrics-account-service:latest
     networks:
-       asujs-network:
-         aliases:
-           - account-service
+       - asujs-network
     deploy:
           restart_policy:
             condition: on-failure
@@ -147,9 +131,8 @@ services:
       MONGODB_PASSWORD: "test"
     image: sqshq/piggymetrics-mongodb:latest
     networks:
-       asujs-network:
-         aliases:
-           - account-mongodb
+       - asujs-network
+       
     deploy:
       restart_policy:
         condition: on-failure
@@ -167,10 +150,7 @@ services:
       STATISTICS_SERVICE_PASSWORD: "test"
     image: sqshq/piggymetrics-statistics-service:latest
     networks:
-       asujs-network:
-         aliases:
-           - statistics-service
-
+       - asujs-network
     deploy:
           restart_policy:
             condition: on-failure
@@ -190,10 +170,7 @@ services:
       MONGODB_PASSWORD: "test"
     image: sqshq/piggymetrics-mongodb:latest
     networks:
-       asujs-network:
-         aliases:
-           - statistics-mongodb
-
+       - asujs-network
     deploy:
           restart_policy:
             condition: on-failure
@@ -212,9 +189,7 @@ services:
       NOTIFICATION_SERVICE_PASSWORD: "test"
     image: sqshq/piggymetrics-notification-service:latest
     networks:
-       asujs-network:
-         aliases:
-           - notification-service
+       - asujs-network
 
     deploy:
           restart_policy:
@@ -232,9 +207,7 @@ services:
   notification-mongodb:
     image: sqshq/piggymetrics-mongodb:latest
     networks:
-       asujs-network:
-         aliases:
-           - notification-mongodb
+       - asujs-network
 
     deploy:
           restart_policy:
@@ -253,9 +226,7 @@ services:
       CONFIG_SERVICE_PASSWORD: "test"
     image: sqshq/piggymetrics-monitoring:latest
     networks:
-       asujs-network:
-         aliases:
-           - monitoring
+       - asujs-network
     deploy:
           restart_policy:
             condition: on-failure
