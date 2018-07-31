@@ -12,6 +12,8 @@ services:
 
     ports:
       - 15672:15672
+    networks:
+       - asujs-network
 
   config:
     environment:
@@ -22,7 +24,8 @@ services:
             delay: 10s
           restart_policy:
             condition: on-failure
-    
+    networks:
+      - asujs-network
 
   registry:
     environment:
@@ -35,7 +38,8 @@ services:
             condition: on-failure
     ports:
       - 8761:8761
-
+    networks:
+       - asujs-network
   gateway:
     environment:
       CONFIG_SERVICE_PASSWORD: "test"
@@ -47,6 +51,8 @@ services:
             condition: on-failure
     ports:
       - 8081:4000
+    networks:
+       - asujs-network
 
   auth-service:
     environment:
@@ -61,6 +67,8 @@ services:
             delay: 10s
           restart_policy:
             condition: on-failure
+    networks:
+       - asujs-network
 
   auth-mongodb:
     environment:
@@ -71,7 +79,8 @@ services:
             delay: 10s
           restart_policy:
             condition: on-failure    
-
+    networks:
+       - asujs-network
   account-service:
     environment:
       CONFIG_SERVICE_PASSWORD: "test"
@@ -83,6 +92,8 @@ services:
             delay: 10s
           restart_policy:
             condition: on-failure    
+    networks:
+       - asujs-network
 
   account-mongodb:
     environment:
@@ -94,7 +105,8 @@ services:
             delay: 10s
           restart_policy:
             condition: on-failure
-    
+    networks:
+       - asujs-network    
 
   statistics-service:
     environment:
@@ -107,7 +119,8 @@ services:
             delay: 10s
           restart_policy:
             condition: on-failure    
-    
+    networks:
+       - asujs-network
 
   statistics-mongodb:
     environment:
@@ -118,6 +131,8 @@ services:
             delay: 10s
           restart_policy:
             condition: on-failure    
+    networks:
+       - asujs-network
 
   notification-service:
     environment:
@@ -130,6 +145,8 @@ services:
             delay: 10s
           restart_policy:
             condition: on-failure    
+    networks:
+       - asujs-network
 
   notification-mongodb:
     image: sqshq/piggymetrics-mongodb:latest
@@ -140,6 +157,8 @@ services:
             condition: on-failure    
     environment:
       MONGODB_PASSWORD: "test"
+    networks:
+       - asujs-network
 
   monitoring:
     environment:
@@ -154,3 +173,8 @@ services:
     ports:
       - 9000:8080
       - 8989:8989
+    networks:
+       - asujs-network
+networks:
+ asujs-network:
+  driver: overlay
